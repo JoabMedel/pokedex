@@ -1,48 +1,44 @@
 import React from 'react'
-import Pikachu from './Pikachu.gif';
 class PokeDesignCard extends React.Component{
     constructor(){
         super();
+        this.cardMoveEffect = React.createRef();
+        this.cardMoveOnTouch = React.createRef();
+        this.numberPokemon = React.createRef();
+        this.namePokemon = React.createRef();
+        this.PokemonStats = React.createRef();
+        this.imagePokemon = React.createRef();
+        this.japaneseText = React.createRef();
+        this.showFeatures = React.createRef();
     }
     //effect move 3d
     moveCardContainer = (event) => {
-        let xAxis = (window.innerWidth / 2 - event.pageX) / 15;
-        let yAxis = (window.innerHeight / 2 - event.pageY) / 15;
-        const card = document.querySelector(".CardPoke");
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        let xAxis = (window.innerWidth / 2 - event.pageX) / 25;
+        let yAxis = (window.innerHeight / 2 - event.pageY) / 25;
+        this.cardMoveEffect.current.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
     }
     //animate In
     animateIn = () => {
-        const card = document.querySelector(".CardPoke");
-        card.style.transition = "none";
+        this.cardMoveEffect.current.style.transition = "none";
         //popOut
-        const numberPokemon = document.querySelector(".container-number-pokemon");
-        const namePokemon = document.querySelector(".poke-name-container");
-        const PokemonStats = document.querySelector(".preview-stats-pokemon");
-        const imagePokemon = document.querySelector(".pokemon-image");
-        const japaneseNme = document.querySelector(".japanese-text");
-        namePokemon.style.transform = 'translateZ(70px)';
-        numberPokemon.style.transform = 'translateZ(50px)';
-        PokemonStats.style.transform = 'translateZ(50px)';
-        imagePokemon.style.transform = 'translateZ(80px)';
-        japaneseNme.style.transform = 'translateZ(100px)';
+        // this.namePokemon.current.style.transform = 'translateZ(70px)';
+        this.numberPokemon.current.style.transform = 'translateZ(25px)';
+        this.PokemonStats.current.style.transform = 'translateZ(50px)';
+        this.imagePokemon.current.style.transform = 'translateZ(120px)';
+        this.japaneseText.current.style.transform = 'translateZ(80px)';
     }
     //Animate Out 
     AnimateOut = () => {
-        const card = document.querySelector(".CardPoke");
-        card.style.transition = "all 0.5s ease";
-        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        const numberPokemon = document.querySelector(".container-number-pokemon");
-        const namePokemon = document.querySelector(".poke-name-container");
-        const PokemonStats = document.querySelector(".preview-stats-pokemon");
-        const imagePokemon = document.querySelector(".pokemon-image");
-        const japaneseNme = document.querySelector(".japanese-text");
-        namePokemon.style.transform = 'translateZ(0px)';
-        numberPokemon.style.transform = 'translateZ(0px)';
-        PokemonStats.style.transform = 'translateZ(0px)';
-        imagePokemon.style.transform = 'translateZ(0px)';
-        japaneseNme.style.transform = 'translateZ(0px)';
+        this.cardMoveEffect.current.style.transition = "all 0.5s ease";
+        this.cardMoveEffect.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        this.namePokemon.current.style.transform = 'translateZ(0px)';
+        this.numberPokemon.current.style.transform = 'translateZ(0px)';
+        this.PokemonStats.current.style.transform = 'translateZ(0px)';
+        this.imagePokemon.current.style.transform = 'translateZ(0px)';
+        this.japaneseText.current.style.transform = 'translateZ(0px)';
     }
+
+
     render(){
         return(
             <div 
@@ -50,33 +46,40 @@ class PokeDesignCard extends React.Component{
                 onMouseMove={this.moveCardContainer} 
                 onMouseEnter={this.animateIn} 
                 onMouseLeave={this.AnimateOut}
+                onTouchStart={this.animateIn}
+                onTouchEnd={this.AnimateOut}
             >
-                <div className="CardPoke">
-                    <div className="container-number-pokemon">
-                        <div className="number-pokemon">#100</div>
-                        <div className="icon-show-more">show more</div>
+                <div className={`${this.props.colorPokemon} CardPoke`} ref={this.cardMoveEffect}> 
+                    <div className="container-number-pokemon" ref={this.numberPokemon}>
+                        <div className="number-pokemon">#{this.props.numberPokemon}</div>
                     </div>
-                    <div className="poke-name-container">
-                        <h2>Pikachu</h2>
+                    <div className="poke-name-container" ref={this.namePokemon}>
+                        <h2>{this.props.namePokemon}</h2>
                     </div>
-                    <div className="preview-stats-pokemon">
+                    <div className="preview-stats-pokemon" ref={this.PokemonStats}>
                         <div className="type-pokemon">
-                            Type pokemon
+                            {this.props.type}
                         </div>
                         <div className="pokemon-stats">
                             <div className="space-text-stats">
                                 <span className="bold-prop">Height: </span>
-                                <span> 70cm</span>
+                                <span>{this.props.Height}</span>
                             </div>
                             <div>
                                 <span className="bold-prop">Weigth: </span>
-                                <span> 5.5kg</span>
+                                <span>{this.props.weight}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="pokemon-image">
-                        <img src={Pikachu} alt="pikachu"/>
-                        <div className="japanese-text">ピカチュウ</div>
+                    <div className="pokemon-image" ref={this.imagePokemon}>
+                        <img 
+                            src={this.props.imagePokemon}
+                            alt={this.props.namePokemon}
+                            onClick={this.props.showFeatures}
+                        />
+                    </div>
+                    <div>
+                        <div className="japanese-text" ref={this.japaneseText}>{this.props.japanAbiliti}</div>
                     </div>
                 </div>
             </div>
