@@ -1,9 +1,9 @@
-import React, {useState,useEffect} from 'react';
+// import React, {useState,useEffect} from 'react';
 import ThisPokemons from './feedPokemons'
 
 export default function PokemonCards (){
-    const [detectDivice,setDetctDivice] = useState("Desktop");
-    const [proof,setProof] = useState();
+    // const [detectDivice,setDetctDivice] = useState("Desktop");
+    // const [proof,setProof] = useState();
 
     // const movile = () => {
     //   return (
@@ -17,7 +17,7 @@ export default function PokemonCards (){
     //   )
     // }
 
-    const GetDivice = ()=> {
+    // const GetDivice = ()=> {
       // const myDivice = () => {
       //   const movileDivice = matchMedia('(max-width: 575.98px)').matches;
       //   const movil_landscape = matchMedia('(min-width: 576px) and (max-width: 900px)').matches;
@@ -30,7 +30,7 @@ export default function PokemonCards (){
       //     defArray = "Desktop";
       //   }
       // }
-    }
+    // }
 
     // const changeComponents = () => {
     //   if (detectDivice === "Desktop"){
@@ -42,9 +42,9 @@ export default function PokemonCards (){
     //   }
     // }
 
-    useEffect(() => {
-      setProof(false);
-    },[])
+    // useEffect(() => {
+    //   setProof(false);
+    // },[])
 
     return(
       <>
